@@ -1,28 +1,27 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-// import MarkdownIt from 'markdown-it';
-// import HtmlToReact from 'html-to-react';
-// import cheerio from 'cheerio';
 import { parseDOM } from 'htmlparser2';
 
 import {
   CardRepo,
   CardRepoInfo,
-  ContactMe, Container, Content, GitRepos, ImageContainer, Profile, Skills,
+  ContactMe, Container, Content, GitRepos, ImageContainer, Profile, Skills, Stacks,
 } from './styles';
 
 export default function Home() {
   const [repositories, setRepositories] = useState([]);
 
-  const token = process.env.REACT_APP_GITHUB_TOKEN;
+  const token = process.env?.REACT_APP_GITHUB_TOKEN || null;
 
   const fetchRepositories = async () => {
     try {
-      const response = await axios.get('https://api.github.com/users/Birgiman/repos', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = !token
+        ? await axios.get('https://api.github.com/users/Birgiman/repos')
+        : await axios.get('https://api.github.com/users/Birgiman/repos', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
       const filteredRepositories = response.data.filter((repo) => repo.topics.includes('website-repo'));
 
@@ -46,20 +45,30 @@ export default function Home() {
 
           const parser = new DOMParser();
           const doc = parser.parseFromString(decodedString, 'text/html');
-          const images = doc.all;
+          const contentToFilter = doc.all;
 
           let coverImage = '';
 
-          if (images.length > 0) {
-            const imgTags = Array.from(images).filter((node) => node.id === 'cover-image');
+          if (contentToFilter.length > 0) {
+            const imgTags = Array.from(contentToFilter).filter((node) => node.id === 'cover-image');
             if (imgTags.length > 0) {
               coverImage = imgTags[0].getAttribute('src') || '';
+            }
+          }
+
+          let stacks = '';
+
+          if (contentToFilter.length > 0) {
+            const liTags = Array.from(contentToFilter).filter((node) => node.id === 'frontend-stack');
+            if (liTags.length > 0) {
+              stacks = liTags[0].getElementsByTagName('li') || '';
             }
           }
 
           return {
             ...repo,
             coverImage,
+            stacks,
           };
         }),
       );
@@ -70,15 +79,13 @@ export default function Home() {
 
       setRepositories(resolvedRepositories);
     } catch (error) {
-      alert.error(error);
+      console.log(error);
     }
   };
 
   useEffect(() => {
     fetchRepositories();
   }, []);
-
-  console.log({ repositories });
 
   const firstRepo = repositories[0];
 
@@ -92,8 +99,8 @@ export default function Home() {
               {firstRepo && (
               <>
                 <img src={firstRepo.owner.avatar_url} alt={firstRepo.owner.login} />
-                <p>Eduardo Birgiman</p>
-                <span>Desenvolvedor Front-End</span>
+                <h2>Eduardo Birgiman</h2>
+                <span>Desenvolvedor Front-End com foco em React.js e novas tecnologias!</span>
               </>
               )}
             </Profile>
@@ -103,7 +110,9 @@ export default function Home() {
                 <span>JavaScript</span>
                 <span>Node.js</span>
                 <span>Express</span>
+                <span>Docker</span>
                 <span>React</span>
+                <span>React-Native</span>
                 <span>Styled-Components</span>
                 <span>HTML</span>
                 <span>CSS</span>
@@ -123,6 +132,17 @@ export default function Home() {
                           </ImageContainer>
                           <p>{repo.description}</p>
                         </a>
+                        {repo.stacks ? (
+                          <Stacks>
+                            {Array.from(repo.stacks).map((stack) => (
+                              <span key={stack.innerText}>{stack.innerText}</span>
+                            ))}
+                          </Stacks>
+                        ) : (
+                          <Stacks>
+                            <span>Tecnologia não informada.</span>
+                          </Stacks>
+                        )}
                       </div>
                       {console.log({ repo })}
                     </CardRepoInfo>

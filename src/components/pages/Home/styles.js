@@ -35,7 +35,7 @@ export const Profile = styled.div`
     margin-top: 4px;
   }
 
-  p {
+  h2 {
     background: ${({ theme }) => theme.colors.gray[600]};
     padding: 6px 16px;
     border-radius: 6px;
@@ -76,7 +76,7 @@ export const GitRepos = styled.div`
 
 export const CardRepo = styled.div`
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: space-between;
 
   width: 100%;
@@ -88,11 +88,8 @@ export const CardRepo = styled.div`
 export const CardRepoInfo = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: space-between;
-  justify-content: space-between;
 
   width: 45%;
-  height: 100%;
 
   background: ${({ theme }) => theme.colors.gray[600]};
   border-radius: 6px;
@@ -105,14 +102,14 @@ export const CardRepoInfo = styled.div`
     text-decoration: none;
   }
 
-  span {
+  > span {
     font-size: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
 
     padding: 6px 0;
-    border-radius: 6px 0;
+    border-radius: 6px 6px 0 0;
 
     background: ${({ theme }) => theme.colors.primary[500]};
   }
@@ -140,6 +137,21 @@ export const ImageContainer = styled.div`
 
   width: 100%;
   height: 140px;
+`;
+
+export const Stacks = styled.div`
+  span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    background: ${({ theme }) => theme.colors.primary[400]};
+    border-radius: 6px;
+
+    margin-top: 8px;
+    margin-right: 4px;
+    padding: 4px 6px;
+  }
 `;
 
 export const ContactMe = styled.div`
