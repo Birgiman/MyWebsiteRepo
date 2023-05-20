@@ -115,6 +115,10 @@ export const CardRepoInfo = styled.div`
       flex-direction: column;
       justify-content: space-between;
       flex-grow: 1;
+
+      background: ${({ theme }) => theme.colors.gray[500]};
+      border-radius: 8px;
+      padding: 8px;
     }
   }
 
@@ -188,13 +192,18 @@ export const Stacks = styled.div`
   align-items: center;
   justify-content: center;
 
+  background: ${({ theme }) => theme.colors.gray[600]};
+  border-radius: 8px;
+
   margin-top: 8px;
+  padding: 0 0 8px 0;
+
   span {
     background: ${({ theme }) => theme.colors.primary[400]};
     border-radius: 6px;
-    margin-top: 8px;
     margin-right: 4px;
     padding: 4px 6px;
+    margin-top: 8px;
   }
 `;
 
