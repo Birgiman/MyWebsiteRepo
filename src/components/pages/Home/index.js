@@ -2,6 +2,12 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { parseDOM } from 'htmlparser2';
 
+import { DiJavascript1, DiNodejsSmall } from 'react-icons/di';
+import {
+  SiExpress, SiDocker, SiReact, SiStyledcomponents, SiHtml5, SiCss3, SiLinkedin, SiMicrosoftoutlook, SiGithub,
+} from 'react-icons/si';
+import { TbBrandReactNative } from 'react-icons/tb';
+
 import {
   CardRepo,
   CardRepoInfo,
@@ -105,44 +111,82 @@ export default function Home() {
               )}
             </Profile>
             <Skills>
-              <>
-                <p>Minhas habilidades:</p>
+              <p>Minhas habilidades:</p>
+              <div>
+                <DiJavascript1 />
                 <span>JavaScript</span>
+              </div>
+              <div>
+                <DiNodejsSmall />
                 <span>Node.js</span>
+              </div>
+              <div>
+                <SiExpress />
                 <span>Express</span>
+              </div>
+              <div>
+                <SiDocker />
                 <span>Docker</span>
+              </div>
+              <div>
+                <SiReact />
                 <span>React</span>
-                <span>React-Native</span>
+              </div>
+              <div>
+                <TbBrandReactNative />
+                <span>
+                  React-Native
+                </span>
+              </div>
+              <div>
+                <SiStyledcomponents />
                 <span>Styled-Components</span>
+              </div>
+              <div>
+                <SiHtml5 />
                 <span>HTML</span>
+              </div>
+              <div>
+                <SiCss3 />
                 <span>CSS</span>
-              </>
+              </div>
             </Skills>
             <GitRepos>
               <p>Meus portifólios:</p>
               {repositories.length > 0 ? (
                 <CardRepo>
                   {repositories.map((repo) => (
-                    <CardRepoInfo key={repo.id} className="cardrepoINFO">
+                    <CardRepoInfo key={repo.id}>
                       <span>{repo.name}</span>
                       <div className="content">
-                        <a href={repo.html_url} target="_blank" rel="noopener noreferrer">
+                        <a href={repo.homepage} target="_blank" rel="noopener noreferrer">
                           <ImageContainer>
-                            <img src={repo.coverImage} alt={repo.name} />
+                            {repo.coverImage !== '' ? (
+                              <img src={repo.coverImage} alt={repo.name} />
+                            ) : (
+                              <span>Não contem imagem de capa ❌</span>
+                            )}
                           </ImageContainer>
-                          <p>{repo.description}</p>
                         </a>
-                        {repo.stacks ? (
-                          <Stacks>
-                            {Array.from(repo.stacks).map((stack) => (
-                              <span key={stack.innerText}>{stack.innerText}</span>
-                            ))}
-                          </Stacks>
-                        ) : (
-                          <Stacks>
-                            <span>Tecnologia não informada.</span>
-                          </Stacks>
-                        )}
+                        <div className="segunda-div">
+                          <p>{repo.description}</p>
+                          {repo.stacks ? (
+                            <Stacks>
+                              {Array.from(repo.stacks).map((stack) => (
+                                <span key={stack.innerText}>{stack.innerText}</span>
+                              ))}
+                            </Stacks>
+                          ) : (
+                            <Stacks>
+                              <span>Tecnologia não informada.</span>
+                            </Stacks>
+                          )}
+                          <div className="action">
+                            <a href={repo.html_url} target="_blank" rel="noopener noreferrer">
+                              Ler documentação
+                            </a>
+                          </div>
+                        </div>
                       </div>
                       {console.log({ repo })}
                     </CardRepoInfo>
@@ -152,7 +196,23 @@ export default function Home() {
                 <p>Carregando...</p>
               )}
             </GitRepos>
-            <ContactMe>Minhas Redes:</ContactMe>
+            <ContactMe>
+              <a href="https://www.linkedin.com/in/eduardo-birgiman-domingues/" target="_blank" rel="noopener noreferrer">
+                <button type="button">
+                  <SiLinkedin size={32} />
+                </button>
+              </a>
+              <a href="https://www.linkedin.com/in/eduardo-birgiman-domingues/" target="_blank" rel="noopener noreferrer">
+                <button type="button">
+                  <SiMicrosoftoutlook size={32} />
+                </button>
+              </a>
+              <a href="https://www.linkedin.com/in/eduardo-birgiman-domingues/" target="_blank" rel="noopener noreferrer">
+                <button type="button">
+                  <SiGithub size={32} />
+                </button>
+              </a>
+            </ContactMe>
           </>
         ) : (
           <h2>Carregando...</h2>
