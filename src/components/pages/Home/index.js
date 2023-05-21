@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { parseDOM } from 'htmlparser2';
+import { motion } from 'framer-motion';
 
-import { DiJavascript1, DiNodejsSmall } from 'react-icons/di';
+import { DiJavascript1, DiNodejsSmall, DiCode } from 'react-icons/di';
 import {
   SiExpress, SiDocker, SiReact, SiStyledcomponents, SiHtml5, SiCss3, SiLinkedin, SiMicrosoftoutlook, SiGithub,
 } from 'react-icons/si';
@@ -95,6 +96,8 @@ export default function Home() {
 
   const firstRepo = repositories[0];
 
+  const carousel = useRef();
+
   return (
     <Container>
       <Content>
@@ -111,7 +114,7 @@ export default function Home() {
               )}
             </Profile>
             <Skills>
-              <p>Minhas habilidades:</p>
+              <h3>Minhas habilidades:</h3>
               <div>
                 <DiJavascript1 />
                 <span>JavaScript</span>
@@ -151,12 +154,24 @@ export default function Home() {
                 <span>CSS</span>
               </div>
             </Skills>
-            <GitRepos>
-              <p>Meus portifólios:</p>
+            <h3>Meus Projetos</h3>
+            <GitRepos
+              ref={carousel}
+              className="carousel"
+            >
               {repositories.length > 0 ? (
-                <CardRepo>
+                <CardRepo
+                  className="inner-carousel"
+                  drag="x"
+                  dragConstraints={carousel}
+                  whileDrag={{ scale: 1.15 }}
+                  dragTransition={{ bounceStiffness: 350, bounceDamping: 15 }}
+                >
                   {repositories.map((repo) => (
-                    <CardRepoInfo key={repo.id}>
+                    <CardRepoInfo
+                      key={repo.id}
+                      className="item"
+                    >
                       <span>{repo.name}</span>
                       <div className="content">
                         <a href={repo.homepage} target="_blank" rel="noopener noreferrer">
@@ -188,9 +203,40 @@ export default function Home() {
                           </div>
                         </div>
                       </div>
-                      {console.log({ repo })}
                     </CardRepoInfo>
                   ))}
+                  <CardRepoInfo
+                    className="item"
+                  >
+                    <span>Em construção...</span>
+                    <div
+                      className="content"
+                    >
+                      <a href="https://github.com/Birgiman/" target="_blank" rel="noopener noreferrer">
+                        <ImageContainer>
+                          <motion.div
+                            animate={{ opacity: [0, 1, 0] }}
+                            transition={{ duration: 0.3, repeat: Infinity }}
+                          >
+                            <DiCode className="DiCode" />
+                          </motion.div>
+                        </ImageContainer>
+                      </a>
+                      <div className="segunda-div">
+                        <p>DESCRICAO</p>
+                        <Stacks>
+                          <span>Nome da stack</span>
+                          <span>Nome da stack</span>
+                          <span>Nome da stack</span>
+                        </Stacks>
+                        <div className="action">
+                          <a href="https://github.com/Birgiman/" target="_blank" rel="noopener noreferrer">
+                            Ler documentação
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </CardRepoInfo>
                 </CardRepo>
               ) : (
                 <p>Carregando...</p>
@@ -198,19 +244,19 @@ export default function Home() {
             </GitRepos>
             <ContactMe>
               <a href="https://www.linkedin.com/in/eduardo-birgiman-domingues/" target="_blank" rel="noopener noreferrer">
-                <button type="button">
+                <motion.button type="button" whileHover={{ scale: 1.2, transition: 0.5 }}>
                   <SiLinkedin size={32} />
-                </button>
+                </motion.button>
               </a>
-              <a href="https://www.linkedin.com/in/eduardo-birgiman-domingues/" target="_blank" rel="noopener noreferrer">
-                <button type="button">
+              <a href="mailto:eduardo.birgiman@outlook.com">
+                <motion.button type="button" whileHover={{ scale: 1.2, transition: 0.5 }}>
                   <SiMicrosoftoutlook size={32} />
-                </button>
+                </motion.button>
               </a>
-              <a href="https://www.linkedin.com/in/eduardo-birgiman-domingues/" target="_blank" rel="noopener noreferrer">
-                <button type="button">
+              <a href="https://github.com/Birgiman/" target="_blank" rel="noopener noreferrer">
+                <motion.button type="button" whileHover={{ scale: 1.2, transition: 0.5 }}>
                   <SiGithub size={32} />
-                </button>
+                </motion.button>
               </a>
             </ContactMe>
           </>

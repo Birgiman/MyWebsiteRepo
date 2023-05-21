@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { styled } from 'styled-components';
 
 export const Container = styled.div`
@@ -6,18 +7,26 @@ export const Container = styled.div`
   justify-content: center;
 
 
-  margin-top: 32px;
+  margin: 32px 0;
 
   `;
 
 export const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   padding: 16px;
   width: 800px;
 
   background: ${({ theme }) => theme.colors.gray[700]};
   border-radius: 8px;
-  border: 1px solid ${({ theme }) => theme.colors.primary[200]};
-  box-shadow: 0 0 5px 5px #7020c4, 0 0 10px 10px #7020c4, 0 0 20px 15px #7020c4, 0 0 80px 10px #7020c4;
+  border: 1px solid ${({ theme }) => theme.colors.primary[400]};
+  box-shadow:
+  0 0 5px 5px ${({ theme }) => theme.colors.primary[400]},
+  0 0 10px 10px ${({ theme }) => theme.colors.primary[400]},
+  0 0 20px 15px ${({ theme }) => theme.colors.primary[400]},
+  0 0 80px 10px ${({ theme }) => theme.colors.primary[400]};
 
 `;
 
@@ -52,6 +61,7 @@ export const Skills = styled.div`
   background: ${({ theme }) => theme.colors.gray[600]};
   padding: 6px 16px 16px 16px;
   border-radius: 6px;
+  margin-bottom: 16px;
 
   div {
     display: inline-flex;
@@ -69,38 +79,63 @@ export const Skills = styled.div`
   }
 `;
 
-export const GitRepos = styled.div`
+export const GitRepos = styled(motion.div)`
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-
+  justify-content: flex-start;
+  overflow: hidden;
+  padding: 0 8px;
   margin-top: 8px;
-`;
-
-export const CardRepo = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: stretch;
-  justify-content: space-between;
 
   width: 100%;
-  height: 100%;
-  padding: 16px;
 
+  position: relative;
+
+  &::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -10px;
+  width: 110px;
+  height: 100%;
+  backdrop-filter: blur(5px);
+  }
 `;
 
-export const CardRepoInfo = styled.div`
+export const CardRepo = styled(motion.div)`
+  display: flex;
+  flex-flow: row nowrap;
+  padding: 16px 0;
+  gap: 16px;
+
+  &:hover {
+    cursor: grab;
+  }
+
+  &:active {
+    cursor: grabbing;
+  }
+`;
+
+export const CardRepoInfo = styled(motion.div)`
   display: flex;
   flex-direction: column;
 
-  width: 45%;
+  width: 320px;
 
   background: ${({ theme }) => theme.colors.gray[600]};
   border-radius: 6px;
 
-  &:nth-child(n+3) {
-    margin-top: 16px;
+  &:hover {
+    cursor: grab;
+  }
+
+  &:active {
+    cursor: grabbing;
+  }
+
+  &:last-child {
+    margin-right: 110px;
   }
 
   .content {
@@ -108,7 +143,7 @@ export const CardRepoInfo = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100%;
+    flex-grow: 1;
 
     .segunda-div {
       display: flex;
@@ -184,6 +219,13 @@ export const ImageContainer = styled.div`
   span {
     color: white;
   }
+
+  div {
+    .DiCode {
+      color: white;
+      font-size: 120px;
+    }
+  }
 `;
 
 export const Stacks = styled.div`
@@ -217,7 +259,19 @@ export const ContactMe = styled.div`
 
   button {
     background: none;
-    border: none;
+    border-radius: 6px;
+    border: 1px solid ${({ theme }) => theme.colors.gray[700]};
     color: white;
+
+    &:hover {
+    color: ${({ theme }) => theme.colors.primary[400]};
+    border-radius: 6px;
+    border: 1px solid ${({ theme }) => theme.colors.primary[400]};
+    box-shadow:
+    0 0 2px 2px ${({ theme }) => theme.colors.primary[400]},
+    0 0 0 0 ${({ theme }) => theme.colors.primary[400]},
+    0 0 0 0 ${({ theme }) => theme.colors.primary[400]},
+    0 0 5px 5px ${({ theme }) => theme.colors.primary[400]};
+    }
   }
 `;
