@@ -1,13 +1,23 @@
-import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { parseDOM } from 'htmlparser2';
 import { motion } from 'framer-motion';
+import { parseDOM } from 'htmlparser2';
+import { useEffect, useRef, useState } from 'react';
 
-import { DiJavascript1, DiNodejsSmall, DiCode } from 'react-icons/di';
+import { BsGit } from 'react-icons/bs';
+import { DiCode, DiJavascript1, DiNodejsSmall } from 'react-icons/di';
 import {
-  SiExpress, SiDocker, SiReact, SiStyledcomponents, SiHtml5, SiCss3, SiLinkedin, SiMicrosoftoutlook, SiGithub,
+  SiAxios,
+  SiCss3,
+  SiDocker,
+  SiExpress,
+  SiGithub,
+  SiHtml5,
+  SiLinkedin, SiMicrosoftoutlook,
+  SiNestjs,
+  SiPostgresql,
+  SiReact, SiStyledcomponents, SiTailwindcss,
 } from 'react-icons/si';
-import { TbBrandReactNative } from 'react-icons/tb';
+import { TbBrandPrisma, TbBrandReactNative, TbBrandTypescript } from 'react-icons/tb';
 
 import {
   CardRepo,
@@ -120,12 +130,32 @@ export default function Home() {
                 <span>JavaScript</span>
               </div>
               <div>
+                <TbBrandTypescript />
+                <span>TypeScript</span>
+              </div>
+              <div>
                 <DiNodejsSmall />
-                <span>Node.js</span>
+                <span>NodeJs</span>
+              </div>
+              <div>
+                <SiNestjs />
+                <span>NestJs</span>
+              </div>
+              <div>
+                <TbBrandPrisma />
+                <span>Prisma</span>
               </div>
               <div>
                 <SiExpress />
                 <span>Express</span>
+              </div>
+              <div>
+                <SiAxios />
+                <span>Axios</span>
+              </div>
+              <div>
+                <SiPostgresql />
+                <span>Postgres</span>
               </div>
               <div>
                 <SiDocker />
@@ -146,12 +176,20 @@ export default function Home() {
                 <span>Styled-Components</span>
               </div>
               <div>
+                <SiTailwindcss />
+                <span>TailwindCSS</span>
+              </div>
+              <div>
                 <SiHtml5 />
                 <span>HTML</span>
               </div>
               <div>
                 <SiCss3 />
                 <span>CSS</span>
+              </div>
+              <div>
+                <BsGit />
+                <span>Git</span>
               </div>
             </Skills>
             <h3>Meus Projetos</h3>

@@ -68,7 +68,7 @@ export const Skills = styled.div`
     align-items: center;
 
     background: ${({ theme }) => theme.colors.gray[700]};
-    padding: 4px 8px;
+    padding: 4px 6px;
     border-radius: 6px;
     margin-right: 8px;
     margin-top: 8px;
